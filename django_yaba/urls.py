@@ -1,6 +1,9 @@
-from django.conf.urls.defaults import *
+try:    
+    from django.conf.urls import patterns, url
+except ImportError:
+    from django.conf.urls.defaults import patterns, url
 from django.conf import settings
-from django.contrib.syndication.views import feed
+from django.contrib.syndication.views import Feed
 from django_yaba.models import Links
 from django_yaba.feeds import RSSFeed
 
@@ -21,11 +24,11 @@ urlpatterns = patterns('django_yaba.views',
 )
 
 urlpatterns += patterns('',
-    url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': {'rss': RSSFeed}}),
+    url(r'^feeds/(?P<url>.*)/$', Feed, {'feed_dict': {'rss': RSSFeed}}),
     url(r'^links/$', 'links', {'link_dict': {'links': Links}}),
 )
 
 if settings.DJANGO_COMMENTS:
     urlpatterns += patterns('',
-        (r'^comments/', include('django.contrib.comments.urls')),
+#        (r'^comments/', include('django.contrib.comments.urls')),
     )
