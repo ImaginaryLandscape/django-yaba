@@ -48,26 +48,26 @@ def archives():
     created = datetime.datetime(2000, 1, 1)
     
     year_range = []
-    for x in stories.dates('created', 'year'):
+    for x in stories.datetimes('created', 'year'):
         if x not in year_range:
             year_range.append(x)
-    for x in galleries.dates('created', 'year'):
+    for x in galleries.datetimes('created', 'year'):
         if x not in year_range:
             year_range.append(x)
-    for x in articles.dates('created', 'year'):
+    for x in articles.datetimes('created', 'year'):
         if x not in year_range:
             year_range.append(x)
         
     year_range.sort()
     
     month_range = []
-    for x in stories.dates('created', 'month'):
+    for x in stories.datetimes('created', 'month'):
         if x not in month_range:
             month_range.append(x)
-    for x in galleries.dates('created', 'month'):
+    for x in galleries.datetimes('created', 'month'):
         if x not in month_range:
             month_range.append(x)
-    for x in articles.dates('created', 'month'):
+    for x in articles.datetimes('created', 'month'):
         if x not in month_range:
             month_range.append(x)
     

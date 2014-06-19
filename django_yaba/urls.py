@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.conf import settings
-from django.contrib.syndication.views import feed
+from django.contrib.syndication.views import Feed
 from django_yaba.models import Links
 from django_yaba.feeds import RSSFeed
 
@@ -11,7 +11,7 @@ urlpatterns = patterns('django_yaba.views',
     url(r'^(?P<slug>[-\w]+)/$', 'story_detail', name="blog-story"),
     url(r'^view/(?P<story_id>[-\w]+)/$', 'story_id', name="blog-id"),
     url(r'^article/(?P<slug>[-\w]+)/$', 'article_detail', name="blog-article"),
-    url(r'^blog/search/$', 'search', name="blog-search"),
+    url(r'^search/$', 'search', name="blog-search"),
     url(r'^tags/(?P<tag>[-\w]+)/$', 'tag_list', name="blog-tags"),
     url(r'^gallery/list/$', 'gallery_list', name="blog-gallery-list"),
     url(r'^gallery/(?P<slug>[-\w]+)/$', 'gallery', name='blog-gallery'),
@@ -21,7 +21,7 @@ urlpatterns = patterns('django_yaba.views',
 )
 
 urlpatterns += patterns('',
-    url(r'^feeds/(?P<url>.*)/$', feed, {'feed_dict': {'rss': RSSFeed}}),
+    url(r'^feeds/(?P<url>.*)/$', Feed, {'feed_dict': {'rss': RSSFeed}}),
     url(r'^links/$', 'links', {'link_dict': {'links': Links}}),
 )
 
