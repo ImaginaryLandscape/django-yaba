@@ -30,9 +30,7 @@ I tend to blog a bit (http://www.f4ntasmic.com), and have built my own blog prev
 ####Articles:
    The articles are items that won't show up in the traditional main news feed. Also, if you check the "Buttoned" box, then the article will have a link to it on the top main nav bar. Currently functional
 ####Comments:
-   You have the option of using Disqus for comments, or using contrib.comments now. Both work fairly well, so you get
-   to decide which you prefer. If you want to use contrib's comments, set DJANGO_COMMENTS in your settings.py to true.
-   Otherwise leave it out, and set you DISQUS settings properly.
+   If you want to use comments, set DJANGO_COMMENTS=True in your settings file.
 ####Social Media:
    Currently can grab your latest tweets, GitHub commits, and builds links to submit stories to Digg, Reddit, Delicious, and StumbleUpon. Github/Twitter configurable via simple settings in settings.py. If you don't want to display your tweets or github commits, just leave those fields empty in settings.py. If those are blank, you'll never see them again. 
 ####Search:
@@ -77,13 +75,17 @@ I tend to blog a bit (http://www.f4ntasmic.com), and have built my own blog prev
 
     # If you want to use contrib.comments set the following to True
     DJANGO_COMMENTS = False
+
+    SITE_ID = 1
     ################################################
 </code></pre>
    Then you'll want to add the following applications to your INSTALLED_APPS:
 <pre><code>
-    tagging
-    django_yaba
-    six
+    'django.contrib.comments', #optional
+    'django.contrib.sites',
+    'tagging',
+    'django_yaba',
+    'django',
 </code></pre>
    And run
 <pre><code>
