@@ -78,16 +78,16 @@ I tend to blog a bit (http://www.f4ntasmic.com), and have built my own blog prev
     # If you want to use contrib.comments set the following to True
     DJANGO_COMMENTS = False
     ################################################
-</pre></code>
+</code></pre>
    Then you'll want to add the following applications to your INSTALLED_APPS:
 <pre><code>
     tagging
     django_yaba
     six
-</pre><code>
+</code></pre>
    And run
 <pre><code>
     ./manage.py syncdb
-<pre></code>
+</code></pre>
    Finally YaBa does have it's own theming that it uses, so I've included in the package all the media that I use on
    www.f4ntasmic.com. You'll need to put that in your media path if you want to make use of it. Enjoy!
