@@ -4,10 +4,10 @@
           <div id="col3_content" class="clearfix">
 <!-- start sidebar -->
    <!-- start categories -->
-            <h3> Categories</h3>
+            <h3> Categories </h3>
             <ul>
               {% for cat in categories %}
-              <li><a href="{{ ROOT_URL }}/{{ cat.get_absolute_url }}">{{ cat }}</a></li>
+              <li><a href="{{ cat.get_absolute_url }}">{{ cat }}</a></li>
               {% endfor %}
             </ul>
             <hr />
