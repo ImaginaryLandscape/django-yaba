@@ -42,8 +42,10 @@
     {% endfor %}
     {% render_comment_form for posts %} 
   {% else %}
+    {% comment %}
     {% load disqus_tags %}
     {% disqus_show_comments %}
+    {% endcomment %}
   {% endif %}
 {% endif %}
   <!-- end comments -->

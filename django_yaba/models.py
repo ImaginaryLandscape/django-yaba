@@ -1,13 +1,22 @@
-import datetime, urllib, re, twitter
-from tagging.fields import TagField
-from tagging.models import Tag
-from django.contrib.comments.moderation import CommentModerator, moderator
+import datetime
+import re
+
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.comments.moderation import(
+        CommentModerator,
+        moderator
+)
 from django.db.models.signals import post_save, pre_save
 from django.db.models import permalink
-from django_yaba.fields import ThumbnailImageField
-from django.contrib.auth.models import User
 from django.db import models
+
+from tagging.fields import TagField
+from tagging.models import Tag
+import twitter
+import six.moves.urllib.request as urllib
+
+from django_yaba.fields import ThumbnailImageField
 
 VIEWABLE_STATUS = [3, 4]
 

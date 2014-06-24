@@ -16,7 +16,9 @@
   {% if django_comments %}
     {% load comments %}
   {% else %}
+    {% comment %}
     {% load disqus_tags %}
+    {% endcomment %}
   {% endif %}
 
 </head>

@@ -1,6 +1,8 @@
 from django import template
 from django.conf import settings
 
+from six import reraise
+
 register = template.Library()
 
 class SettingObjectNode(template.Node):
@@ -15,7 +17,7 @@ class SettingObjectNode(template.Node):
         try:
             setting = getattr(settings, self.setting_name)
         except:
-            raise TemplateSyntaxError, "Setting doesn't exist"
+            reraise(TemplateSyntaxError, "Setting doesn't exist")
 
         if self.var_name is None:
             self.var_name = setting_name
@@ -41,6 +43,6 @@ def get_setting(parser, token):
         if var_name is None and setting_name is not None:
             var_name = setting_name
         else:
-            raise template.TemplateSyntaxError("Setting Tag requires 1 variables")
+            reraise(template.TemplateSyntaxError, "Setting Tag requires 1 variables")
 
     return SettingObjectNode(setting_name[1:-1], var_name[1:-1])

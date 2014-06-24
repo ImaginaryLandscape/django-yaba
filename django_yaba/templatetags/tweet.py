@@ -1,9 +1,16 @@
-from django.template import Library, Node, TemplateSyntaxError
-from django.core.cache import cache
-from django.conf import settings
 from datetime import datetime
 from time import mktime, strptime
-import urllib
+
+from django.core.cache import cache
+from django.conf import settings
+from django.template import(
+        Library,
+        Node,
+        TemplateSyntaxError,
+)
+
+from six import reraise
+import six.moves.urllib.request as urllib
 import simplejson
 
 register = Library()
@@ -96,8 +103,8 @@ def twitter_user_timeline(parser, token):
     """
     bits = token.contents.split()
     if len(bits) != 4:
-        raise TemplateSyntaxError, "twitter_user_timeline tag takes exactly three arguments"
+        reraise(TemplateSyntaxError, "twitter_user_timeline tag takes exactly three arguments")
     if bits[2] != 'as':
-        raise TemplateSyntaxError, "second argument to twitter_user_timeline tag must be 'as'"
+        reraise(TemplateSyntaxError, "second argument to twitter_user_timeline tag must be 'as'")
     return TwitterNode(bits[1], bits[3])
 

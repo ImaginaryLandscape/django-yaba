@@ -61,9 +61,11 @@
            {% get_comment_count for post as post_count %}
            <a href="{{ post.get_absolute_url }}">{{ post_count }} Comments</a>
          {% else %}
+          {% comment %}
            {% load disqus_tags %}
              <a href="{{ post.get_absolute_url }}#disqus_thread">View Comments</a>
              {% disqus_num_replies %}
+          {% endcomment %}
          {% endif %}
          {% endif %}
          <!-- end comments -->
