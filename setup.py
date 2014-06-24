@@ -28,13 +28,16 @@ setup(
     keywords = "django yaba blog",
     description = "Yet Another Blog Application",
     install_requires=[
+        'django>=1.4',
         'setuptools',
         'python-twitter',
         'twitter',
         'simplejson',
         'feedparser',
-        'django-disqus',
         'django-tagging',
+        'six', 
+        'pytz', 
+        'pillow',
     ],
     classifiers = [
         "Intended Audience :: Developers",
