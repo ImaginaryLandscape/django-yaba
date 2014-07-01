@@ -20,22 +20,6 @@
             </ul>
             <hr />
    <!-- end links -->
-   <!-- Start Tweet -->
-            {% if tweet_it %}
-            <h3> Recent Tweets: </h3>
-            {% load tweet %}
-            <ul>
-               {% twitter_user_timeline NULL as twitter_entries %}
-               {% if twitter_entries %}
-                   {% for entry in twitter_entries %}
-                       <li>{{ entry.created_at|date:"d M Y H:i" }} - {{ entry.text }}</li>
-                   {% endfor %}
-               {% endif %}
-            </ul>
-               <p><a href="http://www.twitter.com/{{ tweet_user }}">Follow me on Twitter</a></p>
-            <hr />
-            {% endif %}
-   <!-- Stop Tweet -->
    <!-- start github -->
             {% if commit %}
             <h3> GitHub Commits </h3>

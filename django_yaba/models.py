@@ -13,7 +13,6 @@ from django.db import models
 
 from tagging.fields import TagField
 from tagging.models import Tag
-import twitter
 import six.moves.urllib.request as urllib
 
 from django_yaba.fields import ThumbnailImageField
@@ -252,18 +251,6 @@ def content_tiny_url(content):
 
     return content
 
-def post_tweet(sender, instance, created, **kwargs):
-    if created:
-        if instance.tweet_this:
-            try:
-                if settings.TWITTER_USERNAME and settings.TWITTER_PASSWORD:
-                    url = content_tiny_url("%s/%s" % (settings.ROOT_BLOG_URL,
-                        instance.get_absolute_url()))
-                    api = twitter.Api(username = settings.TWITTER_USERNAME, 
-                        password = settings.TWITTER_PASSWORD)
-                    api.PostUpdate("New blog post - %s" % url)
-            except:
-                pass
 
 def config_name(sender, instance, created, **kwargs):
     if created:
@@ -282,5 +269,3 @@ moderator.register(Article, PostModerator)
 moderator.register(Gallery, PostModerator)
 
 post_save.connect(config_name, sender=Configuration)
-post_save.connect(post_tweet, sender=Article)
-post_save.connect(post_tweet, sender=Story)
