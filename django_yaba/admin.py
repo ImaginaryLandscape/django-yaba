@@ -30,14 +30,14 @@ class LinksAdmin(admin.ModelAdmin):
 
 class StoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'owner', 'status', 'created', 'modified')
-    search_fields = ('title', 'content')
+    search_fields = ('title',)
     list_filter = ('status', 'owner', 'created', 'modified')
     prepopulated_fields = {'slug': ('title',)}
     form = forms.StoryAdminForm
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'owner', 'status', 'created', 'modified')
-    search_fields = ('title', 'content')
+    search_fields = ('title',)
     list_filter = ('status', 'owner', 'created', 'modified')
     prepopulated_fields = {'slug': ('title',)}
     form = forms.ArticleAdminForm
