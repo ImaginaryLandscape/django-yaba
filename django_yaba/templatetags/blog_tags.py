@@ -31,5 +31,5 @@ def get_blog_posts(parser, token):
     count = bits[1]
     count = count[1:-1]
     if len(bits) != 2:
-        raise TemplateSyntaxError, "get_blog_posts requires 1 argument"
+        raise template.TemplateSyntaxError("get_blog_posts requires 1 argument")
     return BlogPostNode(count)
