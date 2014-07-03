@@ -1,7 +1,7 @@
 try:    
-    from django.conf.urls import patterns, url
+    from django.conf.urls import patterns, include, url
 except ImportError:
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django_yaba.models import Links
@@ -30,5 +30,5 @@ urlpatterns += patterns('',
 
 if settings.DJANGO_COMMENTS:
     urlpatterns += patterns('',
-#        (r'^comments/', include('django.contrib.comments.urls')),
+        (r'^comments/', include('django_comments.urls')),
     )

@@ -3,7 +3,7 @@ import re
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.comments.moderation import(
+from django_comments.moderation import(
         CommentModerator,
         moderator
 )
