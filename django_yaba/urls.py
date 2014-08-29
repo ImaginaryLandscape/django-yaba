@@ -24,7 +24,7 @@ urlpatterns = patterns('django_yaba.views',
 )
 
 urlpatterns += patterns('',
-    url(r'^feeds/(?P<url>.*)/$', Feed, {'feed_dict': {'rss': RSSFeed}}),
+    url(r'^feeds/(?P<url>.*)/$', RSSFeed()),
     url(r'^links/$', 'links', {'link_dict': {'links': Links}}),
 )
 
