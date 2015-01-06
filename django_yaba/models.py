@@ -97,7 +97,7 @@ class Story(models.Model):
         (4, "Archived"),
     )
 
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=255)
     slug = models.SlugField()
     category = models.ManyToManyField(Category)
     body = models.TextField()
@@ -146,7 +146,7 @@ class Article(models.Model):
         (4, "Archived"),
     )
 
-    title = models.CharField(blank=True, max_length=50)
+    title = models.CharField(blank=True, max_length=250)
     slug = models.SlugField()
     category = models.ManyToManyField(Category)
     body = models.TextField()

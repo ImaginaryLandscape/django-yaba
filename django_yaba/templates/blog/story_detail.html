@@ -1,54 +1,62 @@
-{% extends "blog_base.html" %}
-<!-- start main content -->
-{% block content %}
-<div id="story-title-{{ posts.id }}" class="span-6 first">
-  <h2>{{ posts.title }}</h2>
+{% extends "blog/base.html" %}
+{% block title %}{{ posts.title }} | {{ block.super }}{% endblock %}
+
+{% block meta-desc %}
+  <meta name="description" content="{{ posts.body|striptags|truncatewords:'30' }}" />
+{% endblock %}
+
+{% block blog_content %}
+<p><a href="../">Back to Tech Blog</a></p>
+<div id="story-heading">
+  {# <img id="story-headshot" src="/images/blog/{{ posts.owner }}.png" alt="{{ posts.owner.get_full_name }}" /> #}
+  <h1 id="story-title">{{ posts.title }}</h1>
+  <p id="story-author">{% firstof posts.owner.get_full_name posts.owner.username %}{% if posts.owner.groups.all.0 %}&mdash;{{ posts.owner.groups.all.0 }}{% endif %}</p>
+  <p id="story-created">{{ posts.created|date:"F d, Y" }}</p>
 </div>
-<div id="story-body-{{ posts.id }}" class="span-18 last">
+
+<div id="story-body" class="span-18 last">
   {{ posts.body|safe }}
-  <hr />
   <p class="small">Updated {{ posts.modified|date:"m/d/y @ h:iA T" }} by {{ posts.owner }}</p>
-  <p class="story_cat"><u>Categories</u>:
+
+  <!-- AddThis Button BEGIN -->
+  <p><a class="addthis_button" href="http://addthis.com/bookmark.php?v=250&amp;pub=xa-4ae9c8d87de9c70b"><img src="http://s7.addthis.com/static/btn/sm-share-en.gif" width="83" height="16" alt="Bookmark and Share" style="border:0"/></a></p>
+  <!-- AddThis Button END -->
+
+  <p class="story_cat">Categories:
    {% for x in posts.category.all %}<a href="{{ x.get_absolute_url }}">{{ x }}</a> {% endfor %}
-    </p>
-    <!-- start tags -->
-     <p><u>Tags</u>: {% for tag in posts.get_tags %}
-     <a href="/tags/{{ tag }}">{{ tag }}</a>
-  {% endfor %}</p>
-  <!-- end tags -->
-  <hr />
-  <!-- start social media -->
-  <p>
-    <a href="http://reddit.com/submit?url={{ ROOT_URL }}{{ posts.get_absolute_url }}amp;title={{ posts.title }}"><img
-    src="{{ STATIC_URL }}images/reddit.gif" alt="Reddit" /></a>
-    <a href="http://digg.com/submit?phase=2amp;url={{ ROOT_URL }}{{ posts.get_absolute_url }}"><img src="{{ STATIC_URL
-    }}images/digg.gif" alt="Digg it!" /></a>
-    <a href="http://www.stumbleupon.com/submit?url={{ ROOT_URL }}{{ posts.get_absolute_url }}amp;title={{ posts.title
-    }}"><img src="{{ STATIC_URL }}images/stumble-upon.jpg" alt="StumbleUpon" /></a>
-    <a href="http://del.icio.us/post?url={{ ROOT_URL }}{{ posts.get_absolute_url }}amp;title={{ posts.title }}"><img
-    src="{{ STATIC_URL }}images/delicious.gif" alt="Delicious!" /></a>
   </p>
-  <!-- stop social media -->
-  <!-- start comments -->
+
+  {% if posts.get_tags %}
+  <p>Tags: {% for tag in posts.get_tags %}
+     <a href="{% url "blog-tags" tag %}">{{ tag }}</a>
+  {% endfor %}
+  </p>
+  {% endif %}
+
 {% if posts.enable_comments %}
-<hr />
 {% load get_setting %}
 {% get_setting "DJANGO_COMMENTS" "django_comments" %}
   {% if django_comments %}
     {% load comments %}
     {% get_comment_list for posts as post_comments %}
     {% for comment in post_comments %}
-      {{ comment }}
+      {% if forloop.first %}
+      <div id="comments"><h3>Comments</h3>{% endif %}
+      <p>
+        {% if comment.url %}<a title="{{ comment.url }}" 
+          href="{{ comment.url }}">{{ comment.name }}</a>
+        {% else %}{{ comment.name }}{% endif %}
+        <span class="small">{{ comment.submit_date|date:"m/d/y @ h:iA T" }}</span><br />
+        {{ comment.comment|linebreaksbr }}
+      </p>
+      {% if forloop.last %}</div>{% endif %}
     {% endfor %}
-    {% render_comment_form for posts %} 
-  {% else %}
-    {% comment %}
-    {% load disqus_tags %}
-    {% disqus_show_comments %}
-    {% endcomment %}
+    <div id="comment-form">
+      <h3>Leave a Comment</h3>
+      <script type="text/javascript">var RecaptchaOptions = {theme : 'white' };</script>
+      {% render_comment_form for posts %}
+    </div>
   {% endif %}
 {% endif %}
-  <!-- end comments -->
 </div>
 {% endblock %}
-<!-- end main content -->

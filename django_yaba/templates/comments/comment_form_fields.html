@@ -1,0 +1,12 @@
+  {% for field in form %}
+    {% if field.is_hidden %}
+      {{ field }}
+    {% else %}
+    <div id="{{ field.name }}-field" class="field {% if field.errors %}error{% endif %}" {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+      {{ field.errors }}
+      {{ field.label_tag }} {{ field }}
+      {% ifequal field.name "url" %}<span class="help-text optional">Optional</span>{% endifequal %}
+    </div>
+    {% endif %}
+  {% endfor %}
+  <script src="//www.google.com/recaptcha/api.js" async defer></script>

@@ -1,0 +1,33 @@
+{% extends "comments/base.html" %}
+
+{% load i18n comments %}
+
+{% block title %}{% trans "Preview your comment" %}{% endblock %}
+
+{% block content %}
+  <div id="comment_preview">
+  {% load comments %}
+  <h1>{% trans "Post a comment" %}</h1>
+  <form id="comment-form" action="{% comment_form_target %}" method="post">{% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+    {% if form.errors %}
+    <h2 class="error">{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h2>
+    {% else %}
+      <div id="comments">
+        {{ comment|linebreaks }}
+      </div>
+      <p class="submit">
+      <input type="submit" name="submit" class="submit-post" value="{% trans "Post your comment" %}" id="submit" />
+      </p>
+      <h2>Or make changes below:</h2>
+    {% endif %}
+
+    {% include "comments/comment_form_fields.html" %}
+
+    <p class="submit">
+      <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+      <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+    </p>
+  </form>
+  </div>
+{% endblock %}

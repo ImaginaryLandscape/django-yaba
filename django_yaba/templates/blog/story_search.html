@@ -1,6 +1,7 @@
-{% extends "blog_base.html" %}
+{% extends "blog/base.html" %}
+
 <!-- start main content -->
-{% block content %}
+{% block blog_content %}
     {% if heading %}
         <h1>{{ heading }}</h1>
     {% else %}
@@ -19,12 +20,12 @@
             <!--
               var viewer{{ post.id }} = new PhotoViewer();
               {% for photo in post.photo_set.all|slice:"3" %}
-              viewer{{ post.id }}.add('{{ STATIC_URL }}{{ photo.image }}');
+              viewer{{ post.id }}.add('{{ MEDIA_URL }}{{ photo.image }}');
               {% endfor %}
               // -->
             </script>
             {% for photo in post.photo_set.all|slice:"3" %}
-                   <a href="{{ STATIC_URL }}{{ photo.image }}" onclick="return viewer{{ post.id }}.show({{ forloop.counter0 }})"> <img width="100" height="100" src="{{ photo.image.thumb_url }}" alt="" /> </a>
+                   <a href="{{ MEDIA_URL }}{{ photo.image }}" onclick="return viewer{{ post.id }}.show({{ forloop.counter0 }})"> <img width="100" height="100" src="{{ photo.image.thumb_url }}" alt="" /> </a>
             {% endfor %}
            <p><a href="{{ post.get_absolute_url }}">Click to see the rest of the gallery</a><p>
           {% endif %}
@@ -35,21 +36,22 @@
          </p>
          <!-- start tags -->
          <p><u>Tags</u>: {% for tag in post.get_tags %}
-         <a href="/tags/{{ tag }}">{{ tag }}</a>
+         <a href="{% url blog-tags tag %}">{{ tag }}</a>
          {% endfor %}</p>
          <!-- end tags -->
          <hr />
          <!-- start social media -->
          <p>
            <a href="http://reddit.com/submit?url={{ ROOT_URL }}{{ post.get_absolute_url }}amp;title={{ post.title
-           }}"><img src="{{ STATIC_URL }}images/reddit.gif" alt="Reddit" /></a>
+           }}"><img src="{{ MEDIA_URL }}images/reddit.gif" alt="Reddit" /></a>
            <a href="http://digg.com/submit?phase=2amp;url={{ ROOT_URL }}{{ post.get_absolute_url }}"><img src="{{
-               STATIC_URL }}images/digg.gif" alt="Digg it!" /></a>
+               MEDIA_URL }}images/digg.gif" alt="Digg it!" /></a>
            <a href="http://www.stumbleupon.com/submit?url={{ ROOT_URL }}{{ post.get_absolute_url }}amp;title={{
-               post.title }}"><img src="{{ STATIC_URL }}images/stumble-upon.jpg" alt="StumbleUpon" /></a>
+               post.title }}"><img src="{{ MEDIA_URL }}images/stumble-upon.jpg" alt="StumbleUpon" /></a>
            <a href="http://del.icio.us/post?url={{ ROOT_URL }}{{ post.get_absolute_url }}amp;title={{ post.title
-           }}"><img src="{{ STATIC_URL }}images/delicious.gif" alt="Delicious!" /></a>
+           }}"><img src="{{ MEDIA_URL }}images/delicious.gif" alt="Delicious!" /></a>
          </p>
+         <hr />
          <!-- stop social media -->
          <!-- start comments -->
          {% if post.enable_comments %}
@@ -61,11 +63,9 @@
            {% get_comment_count for post as post_count %}
            <a href="{{ post.get_absolute_url }}">{{ post_count }} Comments</a>
          {% else %}
-          {% comment %}
            {% load disqus_tags %}
              <a href="{{ post.get_absolute_url }}#disqus_thread">View Comments</a>
              {% disqus_num_replies %}
-          {% endcomment %}
          {% endif %}
          {% endif %}
          <!-- end comments -->
