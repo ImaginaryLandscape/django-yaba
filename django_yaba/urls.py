@@ -25,7 +25,7 @@ urlpatterns = patterns('django_yaba.views',
 
 urlpatterns += patterns('',
     url(r'^feeds/(?P<url>.*)/$', RSSFeed()),
-    url(r'^links/$', 'links', {'link_dict': {'links': Links}}),
+#    url(r'^links/$', 'links', {'link_dict': {'links': Links}}),
 )
 
 if settings.DJANGO_COMMENTS:

@@ -6,17 +6,20 @@ class StoryAdminForm(forms.ModelForm):
     body=forms.CharField(widget=widgets.TinyMCEWidget())
 
     class Meta:
+        fields = "__all__"
         model = get_model('django_yaba', 'story')
 
 class ArticleAdminForm(forms.ModelForm):
     body=forms.CharField(widget=widgets.TinyMCEWidget())
 
     class Meta:
+        fields = "__all__"
         model = get_model('django_yaba', 'article')
 
 class GalleryAdminForm(forms.ModelForm):
     body=forms.CharField(widget=widgets.TinyMCEWidget())
 
     class Meta:
+        fields = "__all__"
         model = get_model('django_yaba', 'gallery')
 
