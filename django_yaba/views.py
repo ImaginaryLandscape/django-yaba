@@ -69,7 +69,7 @@ def story_detail(request, slug):
     """
     Takes the slug of a story, and displays that story
     """
-    posts = get_object_or_404(Story, slug=slug)
+    posts = get_object_or_404(Story, slug=slug, status=3)
     ROOT_URL = settings.ROOT_BLOG_URL
     ROOT_URL = ROOT_URL.rstrip("/")
     return render_to_response("blog/story_detail.html", 
