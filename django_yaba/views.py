@@ -48,7 +48,7 @@ def story_list(request):
     Lists all stories and galleries starting with the most recent. Currently 
     through them into a MultiQuerySet and then we sort them
     """
-    stories = Story.objects.all().order_by('-created')
+    stories = Story.objects.filter(status=3).order_by('-created')
     galleries = Gallery.objects.all().order_by('-created')
     temp = MultiQuerySet(stories, galleries)
     front_page = []
